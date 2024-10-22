@@ -1,0 +1,26 @@
+{
+	"name": "backend-functions",
+	"version": "1.0.0",
+	"scripts": {
+		"build": "tsup",
+		"build:watch": "node esbuild.config.js --watch",
+		"dev": "npm run build:watch & firebase emulators:start --only functions",
+		"script": "npx tsx ./scripts/script.ts",
+		"shell": "npm run build && firebase functions:shell",
+		"start": "npm run shell",
+		"deploy": "npm run build && firebase deploy --only functions"
+	},
+	"engines": {
+		"node": "18"
+	},
+	"main": "lib/index.js",
+	"dependencies": {
+		"firebase-admin": "^12.2.0",
+		"firebase-functions": "^5.0.1",
+		"@repo/utils": "workspace:*"
+	},
+	"devDependencies": {
+		"tsup": "^8.3.0"
+	},
+	"private": true
+}
