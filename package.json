@@ -5,13 +5,16 @@
 		"packages/*"
 	],
 	"packageManager": "pnpm@9.0.4+sha256.caa915eaae9d9aefccf50ee8aeda25a2f8684d8f9d5c6e367eaf176d97c1f89e",
-	"scripts": {},
+	"scripts": {
+		"start": "cd packages/nuxt-web-app && pnpm dev"
+	},
 	"dependencies": {
 		"typesaurus": "^10.7.0"
 	},
 	"devDependencies": {
-		"prettier": "^3.3.3",
-		"typescript": "^5.6.2"
+		"@clack/prompts": "^0.8.2",
+		"prettier": "^3.4.2",
+		"typescript": "^5.7.2"
 	},
 	"private": true
 }

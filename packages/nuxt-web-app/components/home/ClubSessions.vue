@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { db, type ClubSession } from '../../../utils/db'
+import { db, type ClubSession } from '@repo/utils'
 import type { Typesaurus } from 'typesaurus'
 import { Calendar, MapPin } from 'lucide-vue-next'
 

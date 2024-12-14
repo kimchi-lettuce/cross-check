@@ -24,12 +24,11 @@ export function reactiveFirestoreListener<T, B extends Array<any>>(
 		{ immediate: true }
 	)
 
-	onBeforeUnmount(() => {
-		if (cleanup.value) cleanup.value()
-	})
+	onBeforeUnmount(() => cleanup.value && cleanup.value())
 	return { data }
 }
 
+// FIXME: Shouldn't this return the data?
 /** Helps reduce boilerplate for firestore listeners by adding auto cleanup */
 export function firestoreListener(
 	/** The listener setup function */

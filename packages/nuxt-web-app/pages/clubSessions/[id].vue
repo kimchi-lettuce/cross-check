@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { db, type ClubSession } from '../../../utils/db'
+import { db, type ClubSession } from '@repo/utils'
 import type { Typesaurus } from 'typesaurus'
 import { CheckCircle, Clock } from 'lucide-vue-next'
 import TooltipWithTouch from '@/components/ui/TooltipWithTouch.vue'

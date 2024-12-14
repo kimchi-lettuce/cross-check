@@ -5,6 +5,10 @@ script.ts
 # Output of build
 lib
 
+# Ignore all files in ./scripts except for script-example.ts
+/scripts/*
+!/scripts/script-example.ts
+
 # Logs
 logs
 *.log
