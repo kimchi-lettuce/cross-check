@@ -104,7 +104,6 @@ export function useRead<Request extends TypesaurusCore.Request<any>, Result, Sub
 		{ immediate: true }
 	)
 
-	// Return the result and status as a tuple
 	return {
 		result,
 		status: computed(() => ({

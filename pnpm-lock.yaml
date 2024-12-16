@@ -45,6 +45,9 @@ importers:
       '@internationalized/date':
         specifier: ^3.6.0
         version: 3.6.0
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@vee-validate/zod':
         specifier: ^4.14.7
         version: 4.14.7(vue@3.5.13(typescript@5.6.3))

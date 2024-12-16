@@ -12,8 +12,9 @@ const firebaseConfig = {
 	appId: import.meta.env.VITE_FIREBASE_APP_ID
 }
 
-function validateConfig() {
-	// Validate that all required config values are present
+/** Used to validate that all required firebase config values are present. Logs
+ * a helpful warning error if config keys are missing */
+function validateFirebaseConfig() {
 	const missingKeys = Object.entries(firebaseConfig)
 		.filter(([key, value]) => {
 			return !value || value.includes('your-') || value === 'undefined' || value.includes('placeholder')
@@ -25,17 +26,17 @@ function validateConfig() {
 		throw new Error('Firebase configuration is incomplete')
 	}
 }
-validateConfig()
+validateFirebaseConfig()
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 
 // Initialize Firebase services
-const db = getFirestore(app)
+const firestore = getFirestore(app)
 const auth = getAuth(app)
 const storage = getStorage(app)
 
 console.log('%c🔥 Firebase App initialized successfully! App name:', 'color: #FFA000; font-weight: bold; font-size: 12px;', app.options.projectId)
 
 // Export the services
-export { db, auth, storage }
+export { firestore, auth, storage }

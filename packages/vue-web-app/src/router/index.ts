@@ -32,8 +32,12 @@ router.beforeEach((to, from, next) => {
 
 	console.log(`%c🚀 Navigating to: ${String(to.name)}`, 'color: #3b82f6; font-weight: bold;', { requiresAuth, noAuth, user: authStore.user })
 
+	// If the first snapshot of the user data is still loading, then show the
+	// initial loading page
 	if (authStore.isLoading) {
 		if (to.name !== 'loading') {
+			// If found to be navigating to anything that isn't the loading
+			// page, force it to navigate to the loading page anyway
 			next({ name: 'loading' })
 		} else {
 			next()
