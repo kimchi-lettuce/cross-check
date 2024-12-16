@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia'
 import { auth } from '@/lib/firebaseConfig'
 import { onAuthStateChanged, type User } from 'firebase/auth'
+import type { Router } from 'vue-router'
 
 type AuthStoreState = {
 	/** The firebase user object. Will be undefined if the user is not loaded
@@ -19,11 +20,25 @@ export const useAuthStore = defineStore('auth', {
 		isLoading: true
 	}),
 	actions: {
-		init() {
+		init(router: Router) {
 			onAuthStateChanged(auth, user => {
-				console.log('🔥 User state changed:', user)
-				this.user = user
+				console.log('🧑 User state changed:', user)
+
+				const wasSignedIn = !!this.user
+				const isSignedIn = !!user
+
 				this.isLoading = false
+				this.user = user
+
+				// Handle navigation based on auth state changes
+				if (!wasSignedIn && isSignedIn) {
+					// User just signed in
+					router.push('/')
+				} else if (!isSignedIn) {
+					// User is either signed out or the first snapshot of the
+					// user just loaded and is found to be not signed in
+					router.push('/auth')
+				}
 			})
 		}
 	},

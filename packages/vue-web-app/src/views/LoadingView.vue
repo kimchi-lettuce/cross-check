@@ -1,21 +1,3 @@
-<script setup lang="ts">
-import { useAuthStore } from '@/stores/authStore'
-import { watch } from 'vue'
-import { useRouter } from 'vue-router'
-
-const authStore = useAuthStore()
-const router = useRouter()
-
-watch(authStore, () => {
-	if (!authStore.isLoading) {
-		if (!authStore.user) {
-			router.push('/auth')
-		} else {
-			router.push('/')
-		}
-	}
-})
-</script>
 <template>
 	<div class="flex items-center justify-center min-h-screen">
 		<div class="text-center">

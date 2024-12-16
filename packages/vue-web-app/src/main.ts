@@ -13,6 +13,6 @@ app.use(createPinia())
 app.use(router)
 
 const authStore = useAuthStore()
-authStore.init()
+authStore.init(router)
 
 app.mount('#app')
