@@ -2,7 +2,6 @@
 import GoogleIcon from '@/components/icons/GoogleIcon.vue'
 import { AutoForm } from '@/components/ui/auto-form'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { auth } from '@/lib/firebaseConfig'
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { Loader2 } from 'lucide-vue-next'
@@ -17,6 +16,7 @@ const loginSchema = z.object({
 const error = ref('')
 const isLoading = ref(false)
 const isGoogleLoading = ref(false)
+const isImageLoaded = ref(false)
 
 /** Signs in the user with the given email and password */
 const onSubmit = async (data: z.infer<typeof loginSchema>) => {
@@ -57,29 +57,43 @@ const signInWithGoogle = async () => {
 </script>
 
 <template>
-	<Card class="mx-auto max-w-sm">
-		<CardHeader class="pb-3">
-			<CardTitle class="text-2xl">Login</CardTitle>
-			<CardDescription>Enter your email below to login to your account</CardDescription>
-		</CardHeader>
-		<CardContent>
-			<AutoForm :schema="loginSchema" @submit="onSubmit">
-				<div class="mt-4 flex flex-col gap-2">
-					<p v-if="error" class="text-red-500">{{ error }}</p>
-					<Button type="submit" class="w-full" :disabled="isLoading">
-						<Loader2 v-if="isLoading" class="w-4 h-4 animate-spin" />
-						{{ isLoading ? 'Logging in...' : 'Login' }}
-					</Button>
-					<Button variant="outline" type="button" class="w-full" @click="signInWithGoogle" :disabled="isGoogleLoading">
-						<GoogleIcon />
-						{{ isGoogleLoading ? 'Loading...' : 'Sign in with Google' }}
-					</Button>
+	<div class="h-screen w-full lg:grid lg:grid-cols-2">
+		<div class="flex items-center justify-center py-12">
+			<div class="mx-auto grid w-[350px] gap-6">
+				<div class="grid gap-2 text-center">
+					<h1 class="text-3xl font-bold">Login</h1>
+					<p class="text-balance text-muted-foreground">Enter your email below to login to your account</p>
 				</div>
-			</AutoForm>
-			<div class="mt-4 text-center text-sm">
-				Don't have an account?
-				<a href="#" class="underline">Sign up</a>
+				<AutoForm :schema="loginSchema" @submit="onSubmit">
+					<div class="grid gap-4 mt-6">
+						<p v-if="error" class="text-red-500">{{ error }}</p>
+						<Button type="submit" class="w-full" :disabled="isLoading">
+							<Loader2 v-if="isLoading" class="h-4 w-4 animate-spin" />
+							{{ isLoading ? 'Logging in...' : 'Login' }}
+						</Button>
+						<Button variant="outline" type="button" class="w-full" @click="signInWithGoogle" :disabled="isGoogleLoading">
+							<GoogleIcon />
+							{{ isGoogleLoading ? 'Loading...' : 'Sign in with Google' }}
+						</Button>
+					</div>
+				</AutoForm>
+				<div class="text-center text-sm">
+					Don't have an account?
+					<a href="#" class="underline">Sign up</a>
+				</div>
 			</div>
-		</CardContent>
-	</Card>
+		</div>
+		<div class="h-full bg-muted lg:block overflow-hidden">
+			<img
+				src="@/assets/book-forest.jpg"
+				alt="Image"
+				:class="[
+					'h-full w-full object-cover dark:brightness-[0.2] dark:grayscale',
+					'transition-opacity duration-200',
+					isImageLoaded ? 'opacity-100' : 'opacity-0'
+				]"
+				@load="isImageLoaded = true"
+			/>
+		</div>
+	</div>
 </template>

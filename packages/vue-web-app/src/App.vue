@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue'
+import { useAuthStore } from '@/stores/authStore'
+
+const authStore = useAuthStore()
 </script>
 
 <template>
-	<RouterView />
+	<AuthenticatedLayout v-if="authStore.isAuthenticated">
+		<RouterView />
+	</AuthenticatedLayout>
+	<RouterView v-else />
 </template>
