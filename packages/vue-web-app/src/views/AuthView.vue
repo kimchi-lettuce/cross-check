@@ -61,7 +61,7 @@ const signInWithGoogle = async () => {
 		<div class="flex items-center justify-center py-12">
 			<div class="mx-auto grid w-[350px] gap-6">
 				<div class="grid gap-2 text-center">
-					<h1 class="text-3xl font-bold">Login</h1>
+					<h1 class="text-3xl font-bold">Welcome to CrossCheck</h1>
 					<p class="text-balance text-muted-foreground">Enter your email below to login to your account</p>
 				</div>
 				<AutoForm :schema="loginSchema" @submit="onSubmit">
