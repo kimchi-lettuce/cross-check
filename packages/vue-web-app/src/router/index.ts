@@ -20,6 +20,11 @@ const router = createRouter({
 			path: '/loading',
 			name: 'loading',
 			component: () => import('../views/LoadingView.vue')
+		},
+		{
+			path: '/:pathMatch(.*)*',
+			name: 'NotFound',
+			component: () => import('../views/NotFound.vue')
 		}
 	]
 })
@@ -39,19 +44,13 @@ router.beforeEach((to, from, next) => {
 			// If found to be navigating to anything that isn't the loading
 			// page, force it to navigate to the loading page anyway
 			next({ name: 'loading' })
-		} else {
-			next()
+			authStore.onLoadRedirect = to.fullPath
 		}
-		return
 	}
 
-	if (requiresAuth && !authStore.user) {
-		next('/auth')
-	} else if (noAuth && authStore.user) {
-		next('/')
-	} else {
-		next()
-	}
+	// Route authentication protection is handled in `authStore.ts` based on the
+	// `onAuthStateChanged` callback
+	next()
 })
 
 export default router

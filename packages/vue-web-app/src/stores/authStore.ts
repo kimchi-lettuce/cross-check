@@ -12,12 +12,16 @@ type AuthStoreState = {
 	user: User | undefined | null
 	/** Whether the first `onAuthStateChanged` callback has fired yet */
 	isLoading: boolean
+	/** The path to redirect to after the user has been loaded. Used to preserve
+	 * the intended path after the user has been loaded */
+	onLoadRedirect: string | null
 }
 
 export const useAuthStore = defineStore('auth', {
 	state: (): AuthStoreState => ({
 		user: undefined,
-		isLoading: true
+		isLoading: true,
+		onLoadRedirect: null
 	}),
 	actions: {
 		init(router: Router) {
@@ -33,7 +37,8 @@ export const useAuthStore = defineStore('auth', {
 				// Handle navigation based on auth state changes
 				if (!wasSignedIn && isSignedIn) {
 					// User just signed in
-					router.push('/')
+					router.push(this.onLoadRedirect || '/')
+					this.onLoadRedirect = null
 				} else if (!isSignedIn) {
 					// User is either signed out or the first snapshot of the
 					// user just loaded and is found to be not signed in
