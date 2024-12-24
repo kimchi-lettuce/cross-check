@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -15,7 +16,7 @@ const breadcrumbs = computed(() => {
 	})
 })
 
-const formatBreadcrumb = (path: string) => {
+function formatBreadcrumb(path: string) {
 	// Convert kebab-case to Title Case
 	return path
 		.split('-')

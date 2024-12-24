@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import { SidebarProvider } from '@/components/ui/sidebar'
-import AppSidebar from '@/components/AppSidebar.vue'
-import AppHeader from '@/components/AppHeader.vue'
-import MainContent from '@/components/MainContent.vue'
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
+import AppSidebar from '@/components/AppSidebar/index.vue'
+import AppHeader from '@/components/AppHeader/index.vue'
 </script>
 
 <template>
 	<SidebarProvider>
-		<div class="flex h-screen">
+		<div class="flex h-screen w-screen">
 			<AppSidebar />
-			<div class="flex flex-1 flex-col overflow-hidden">
-				<AppHeader />
-				<MainContent>
-					<slot></slot>
-				</MainContent>
-			</div>
+			<SidebarInset>
+				<div class="flex flex-1 flex-col overflow-hidden">
+					<AppHeader />
+					<div class="flex-1">
+						<slot />
+					</div>
+				</div>
+			</SidebarInset>
 		</div>
 	</SidebarProvider>
 </template>
