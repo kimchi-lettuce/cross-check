@@ -7,13 +7,25 @@ const route = useRoute()
 
 const breadcrumbs = computed(() => {
 	const paths = route.path.split('/').filter(Boolean)
-	return paths.map((path, index) => {
+
+	// Always start with Home
+	const crumbs = [
+		{
+			name: 'Home',
+			path: '/'
+		}
+	]
+
+	// Add remaining path segments
+	paths.forEach((path, index) => {
 		const fullPath = '/' + paths.slice(0, index + 1).join('/')
-		return {
+		crumbs.push({
 			name: formatBreadcrumb(path),
 			path: fullPath
-		}
+		})
 	})
+
+	return crumbs
 })
 
 function formatBreadcrumb(path: string) {
@@ -30,7 +42,7 @@ function formatBreadcrumb(path: string) {
 		<BreadcrumbList>
 			<template v-for="(crumb, index) in breadcrumbs" :key="index">
 				<BreadcrumbItem :class="{ 'hidden md:block': index !== breadcrumbs.length - 1 }">
-					<BreadcrumbLink v-if="index < breadcrumbs.length - 1" :href="crumb.path">
+					<BreadcrumbLink v-if="index < breadcrumbs.length - 1" :to="crumb.path">
 						{{ crumb.name }}
 					</BreadcrumbLink>
 					<BreadcrumbPage v-else>{{ crumb.name }}</BreadcrumbPage>
