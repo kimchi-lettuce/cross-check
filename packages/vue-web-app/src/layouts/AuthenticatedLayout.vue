@@ -11,7 +11,7 @@ import AppHeader from '@/components/AppHeader/index.vue'
 			<SidebarInset>
 				<div class="flex flex-1 flex-col overflow-hidden">
 					<AppHeader />
-					<div class="flex-1">
+					<div class="flex-1 p-4 pt-2 overflow-y-auto">
 						<slot />
 					</div>
 				</div>
