@@ -32,10 +32,8 @@ const router = createRouter({
 // Navigation guard using auth store
 router.beforeEach((to, from, next) => {
 	const authStore = useAuthStore()
-	const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-	const noAuth = to.matched.some(record => record.meta.noAuth)
 
-	console.log(`%c🚀 Navigating to: ${String(to.name)}`, 'color: #3b82f6; font-weight: bold;', { requiresAuth, noAuth, user: authStore.user })
+	console.log(`%c🚀 Navigating to: ${String(to.name)}`, 'color: #3b82f6; font-weight: bold;')
 
 	// If the first snapshot of the user data is still loading, then show the
 	// initial loading page
@@ -44,7 +42,10 @@ router.beforeEach((to, from, next) => {
 			// If found to be navigating to anything that isn't the loading
 			// page, force it to navigate to the loading page anyway
 			next({ name: 'loading' })
-			authStore.onLoadRedirect = to.fullPath
+			// If the user was attempting to navigate to the auth page, redirect
+			// them to the home page instead
+			authStore.onSignInRedirect = to.fullPath === '/auth' ? '/' : to.fullPath
+			return
 		}
 	}
 

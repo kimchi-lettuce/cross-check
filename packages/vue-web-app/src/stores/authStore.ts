@@ -12,16 +12,17 @@ type AuthStoreState = {
 	user: User | undefined | null
 	/** Whether the first `onAuthStateChanged` callback has fired yet */
 	isLoading: boolean
-	/** The path to redirect to after the user has been loaded. Used to preserve
-	 * the intended path after the user has been loaded */
-	onLoadRedirect: string | null
+	/** The path to redirect to after the user has been signed in. Used to
+	 * preserve the intended path after the initial loading of the firebase user
+	 * has been completed */
+	onSignInRedirect: string | null
 }
 
 export const useAuthStore = defineStore('auth', {
 	state: (): AuthStoreState => ({
 		user: undefined,
 		isLoading: true,
-		onLoadRedirect: null
+		onSignInRedirect: null
 	}),
 	actions: {
 		init(router: Router) {
@@ -37,8 +38,8 @@ export const useAuthStore = defineStore('auth', {
 				// Handle navigation based on auth state changes
 				if (!wasSignedIn && isSignedIn) {
 					// User just signed in
-					router.push(this.onLoadRedirect || '/')
-					this.onLoadRedirect = null
+					router.push(this.onSignInRedirect || '/')
+					this.onSignInRedirect = null
 				} else if (!isSignedIn) {
 					// User is either signed out or the first snapshot of the
 					// user just loaded and is found to be not signed in
