@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { auth } from '@/lib/firebaseConfig'
 import { onAuthStateChanged, type User } from 'firebase/auth'
 import type { Router } from 'vue-router'
+import type { Typesaurus } from 'typesaurus'
 
 type AuthStoreState = {
 	/** The firebase user object. Will be undefined if the user is not loaded
@@ -49,6 +50,7 @@ export const useAuthStore = defineStore('auth', {
 		}
 	},
 	getters: {
-		isAuthenticated: state => !!state.user
+		isAuthenticated: state => !!state.user,
+		uid: state => state.user?.uid as Typesaurus.Id<'users'> | undefined
 	}
 })

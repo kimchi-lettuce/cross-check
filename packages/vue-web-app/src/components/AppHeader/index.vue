@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
+import ShareResourceDrawer from '@/layouts/AuthenticatedLayout/ShareResourceDrawer.vue'
 import PageBreadcrumbs from './PageBreadcrumb.vue'
-import { Plus } from 'lucide-vue-next'
 </script>
 
 <template>
@@ -14,9 +13,6 @@ import { Plus } from 'lucide-vue-next'
 			<PageBreadcrumbs />
 		</div>
 
-		<Button>
-			<Plus />
-			Share a Resource
-		</Button>
+		<ShareResourceDrawer />
 	</header>
 </template>
